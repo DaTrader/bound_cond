@@ -89,12 +89,7 @@ defmodule BoundCond do
     end
   end
 
-  # `true ->` — the unconditional catch-all; clauses after it are unreachable.
-  defp build([{ :->, _, [[ true], body]} | _rest]) do
-    body
-  end
-
-  # `condition -> body`
+  # `condition -> body` — every clause compiles to one of these.
   defp build([{ :->, _, [[ condition], body]} | rest]) do
     quote do
       if unquote( condition) do
